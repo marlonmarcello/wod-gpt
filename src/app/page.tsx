@@ -5,10 +5,29 @@ import Markdown from "react-markdown";
 
 import { generateWod } from "./generate-wod";
 
+export interface Wod {
+  id: string;
+  exercises: string;
+}
+
+export interface FormState {
+  work: number;
+  rest: number;
+  cycles: number;
+  total_sets: number;
+  unique_sets: number;
+  rest_between_sets: number;
+  cooldown: number;
+}
+
+export interface Form extends FormState {
+  equipment: string[];
+}
+
 const isServer = typeof window === "undefined";
 
 export default function Home() {
-  const [formState, setFormState] = useState({
+  const [formState, setFormState] = useState<FormState>({
     work: 20,
     rest: 10,
     cycles: 8,
@@ -18,9 +37,9 @@ export default function Home() {
     cooldown: 0,
   });
 
-  const [wod, setWod] = useState("");
+  const [wod, setWod] = useState<Wod | undefined>();
 
-  const [savedWods, setSavedWods] = useState(() =>
+  const [savedWods, setSavedWods] = useState<Wod[]>(() =>
     !isServer ? JSON.parse(localStorage.getItem("wods") || `[]`) : []
   );
 
@@ -42,6 +61,8 @@ export default function Home() {
     const formData = new FormData(event.currentTarget);
 
     const newWod = await generateWod(formData);
+
+    if (!newWod) return;
 
     setWod(newWod);
   }

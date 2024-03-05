@@ -2,7 +2,9 @@
 
 import OpenAI from "openai";
 
-export async function generateWod(data: FormData) {
+import type { Wod } from "./page";
+
+export async function generateWod(data: FormData): Promise<Wod | undefined> {
   const work = data.get("work");
   const cycles = data.get("cycles");
   const sets = data.get("unique_sets");
@@ -37,6 +39,8 @@ export async function generateWod(data: FormData) {
     ],
     model: "gpt-3.5-turbo",
   });
+
+  if (!completion?.choices[0]?.message?.content) return undefined;
 
   return {
     id: completion.id,
