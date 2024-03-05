@@ -108,7 +108,6 @@ export default function Home() {
                 })
               )}
             </div>
-            <div className="stat-desc">21% more than last month</div>
           </div>
         </div>
         {/* <h2>Choose style</h2>
@@ -135,6 +134,7 @@ export default function Home() {
             <label className="form-control w-full ">
               <div className="label">
                 <span className="label-text">Prepare</span>
+                <span className="label-text-alt">seconds</span>
               </div>
               <input
                 className="input input-bordered w-full "
@@ -148,6 +148,7 @@ export default function Home() {
             <label className="form-control w-full ">
               <div className="label">
                 <span className="label-text">Work</span>
+                <span className="label-text-alt">seconds</span>
               </div>
               <input
                 className="input input-bordered w-full "
@@ -162,6 +163,7 @@ export default function Home() {
             <label className="form-control w-full ">
               <div className="label">
                 <span className="label-text">Rest</span>
+                <span className="label-text-alt">seconds</span>
               </div>
               <input
                 className="input input-bordered w-full "
@@ -219,6 +221,7 @@ export default function Home() {
             <label className="form-control w-full ">
               <div className="label">
                 <span className="label-text">Rest between sets</span>
+                <span className="label-text-alt">seconds</span>
               </div>
               <input
                 className="input input-bordered w-full "
@@ -232,6 +235,7 @@ export default function Home() {
             <label className="form-control w-full ">
               <div className="label">
                 <span className="label-text">Cooldown</span>
+                <span className="label-text-alt">seconds</span>
               </div>
               <input
                 className="input input-bordered w-full "
@@ -315,7 +319,9 @@ export default function Home() {
                 {savedWods.map((wod, i) => (
                   <li key={wod.id}>
                     <Markdown className="prose">{wod.exercises}</Markdown>
-                    {i + 1 > 1 && <div className="divider">{i + 1}</div>}
+                    {i + 1 >= 1 && i < savedWods.length - 1 && (
+                      <div className="divider">{i + 1}</div>
+                    )}
                   </li>
                 ))}
               </ul>

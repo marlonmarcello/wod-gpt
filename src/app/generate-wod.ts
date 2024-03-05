@@ -7,8 +7,9 @@ import type { Wod } from "./page";
 export async function generateWod(data: FormData): Promise<Wod | undefined> {
   const work = data.get("work");
   const cycles = data.get("cycles");
-  const sets = data.get("unique_sets");
+  const unique_sets = data.get("unique_sets");
   const equipment = data.getAll("equipment");
+  const rest = data.get("rest");
 
   console.log(equipment);
 
@@ -20,21 +21,12 @@ export async function generateWod(data: FormData): Promise<Wod | undefined> {
     messages: [
       {
         role: "system",
-        content: `You are a personal trainer. You will be given a set of parameters and intructions and you should generate a work out in a simple bullet list without any further instructions.
-
-          You don't have to use a different exercise for each cycle but each set must be unique.
-
-          You don't have to use all the equipment. Always include at least one body weight exercise and at least one core exercise.
-
-          Work time: ${work} seconds
-          Number of exercises per set: ${cycles}
-          Sets: ${sets}
-          Equipment available: ${equipment.join(", ")}
+        content: `You are a personal trainer. You will be given a set of parameters and intructions and you should generate a work out in a simple bullet list without any further instructions. You don't have to use a different exercise for each cycle but each set must be unique. You don't have to use all the equipment. Always include at least one body weight exercise and at least one core exercise.
         `,
       },
       {
         role: "system",
-        content: `Work time: ${work}, Number of exercises per set: ${cycles}, Number of sets: ${sets},`,
+        content: `Work time: ${work} seconds. Rest time: ${rest} seconds. Number of cycles: ${cycles}. Number of sets: ${unique_sets}. Equipment available: ${equipment.join(", ")}.`,
       },
     ],
     model: "gpt-3.5-turbo",
