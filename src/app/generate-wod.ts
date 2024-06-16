@@ -21,7 +21,7 @@ export async function generateWod(data: FormData): Promise<Wod | undefined> {
     messages: [
       {
         role: "system",
-        content: `You are a personal trainer. You will be given a set of parameters and intructions and you should generate a work out in a simple bullet list without any further instructions. You don't have to use a different exercise for each cycle but each set must be unique. You don't have to use all the equipment. Always include at least one body weight exercise and at least one core exercise.
+        content: `You are a personal trainer. You will be given a set of parameters and intructions and you should generate a work out. You don't have to use a different exercise for each cycle but each set must be unique. You don't have to use all the equipment suggested. Always include at least one body weight exercise and at least one core exercise.
         `,
       },
       {

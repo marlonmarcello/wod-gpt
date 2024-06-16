@@ -40,7 +40,7 @@ export default function Home() {
   const [wod, setWod] = useState<Wod | undefined>();
 
   const [savedWods, setSavedWods] = useState<Wod[]>(() =>
-    !isServer ? JSON.parse(localStorage.getItem("wods") || `[]`) : []
+    !isServer ? JSON.parse(localStorage.getItem("wods") || `[]`) : [],
   );
 
   function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -105,7 +105,7 @@ export default function Home() {
                   cycles,
                   total_sets,
                   rest_between_sets,
-                })
+                }),
               )}
             </div>
           </div>
@@ -178,6 +178,7 @@ export default function Home() {
             <label className="form-control w-full ">
               <div className="label">
                 <span className="label-text">Cycles</span>
+                <span className="label-text-alt">work + rest = cycle</span>
               </div>
               <input
                 className="input input-bordered w-full "
@@ -192,6 +193,9 @@ export default function Home() {
             <label className="form-control w-full ">
               <div className="label">
                 <span className="label-text">Sets</span>
+                <span className="label-text-alt">
+                  group of exercises to cycle
+                </span>
               </div>
               <input
                 className="input input-bordered w-full "
@@ -206,6 +210,7 @@ export default function Home() {
             <label className="form-control w-full ">
               <div className="label">
                 <span className="label-text">Unique sets</span>
+                <span className="label-text-alt"></span>
               </div>
               <input
                 className="input input-bordered w-full "
@@ -296,6 +301,9 @@ export default function Home() {
           <div className="card-body">
             <h2 className="card-title">Wokout of the Day</h2>
             <Markdown className="prose">{wod.exercises}</Markdown>
+            <pre>
+              <code>{JSON.stringify(wod.exercises, null, 2)}</code>
+            </pre>
             <div className="card-actions justify-end">
               <button
                 type="submit"
